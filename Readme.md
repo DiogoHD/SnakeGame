@@ -1,3 +1,3 @@
 My first "big" project.
 A classic Snake Game with skins, leaderboards, saves and setting.
-Trying something
+Somethings are still being done.
