@@ -2,6 +2,10 @@
 
 char* choose_char(int number, char skin){
     switch (number){
+        // Prints empty spaces on the map
+        case 0:
+            return "  ";
+        // Prints the snake
         case 1: 
             switch (skin){
                 case '1':
@@ -21,10 +25,13 @@ char* choose_char(int number, char skin){
                 default:
                     return "00";
             }
+        // Prints the apple
         case 2:
             return "🍎";
+        // Prints the walls
         case 3: 
             return "██";
+        // To see if there's an error with the printing
         default:
             return "00";
     }

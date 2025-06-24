@@ -13,16 +13,15 @@
 
 int main(){
     // Initializing ncurses
-    setlocale(LC_ALL, "");  // Ativa o suporte a UTF-8 (emojis,...)
-    initscr();              // Inicializa a biblioteca ncurses e prepara o terminal
-    cbreak();               // Modo linha-a-linha: permite capturar teclas imediatamente sem esperar pelo Enter
-    noecho();               // Não mostra no ecrã as teclas que o utilizador pressiona
-    curs_set(FALSE);        // Não mostra o cursor no ecrã
-    timeout(-1);            // Espera até que uma tecla seja digitada
-    keypad(stdscr, TRUE);   // Permite usar teclas especiais (setas, F1, etc.)
+    setlocale(LC_ALL, "");  // Allows UTF-8 support (emojis,...)
+    initscr();              // Inicializes the ncurses screen
+    cbreak();               // Mode line by line: allows the keys to be captured witouth enter
+    noecho();               // Doesn't show the keys that the user presses on the screen
+    curs_set(FALSE);        // Doesn't show the cursor on the screen
+    timeout(-1);            // Waits until a key is pressed
+    keypad(stdscr, TRUE);   // Allow the use of special keys (arrows, F1, etc.)
 
-    // Inicia o gerador de números aleatórios no início do programa
-    srand(time(NULL));
+    srand(time(NULL));      // Inicalizes the random number generator
 
     // Initializing and declaring variables and arrays
     map_t* map;
@@ -33,7 +32,7 @@ int main(){
 
     while (playing){
 
-        // Inicial Menu
+        // Main Menu
         do {
             option = print_main_menu();
             switch (option){
@@ -60,48 +59,44 @@ int main(){
             }
         } while (option != '1' && option != '2' && option != '5');
 
-        // If the user choose to exit, the program ends
-        if (!playing) break;
-
-        // If the user chooses a skin
-        if (skin != '0') map->skin = skin;
+        
+        if (!playing) break;                // If the user choose to exit, the program ends
+        if (skin != '0') map->skin = skin;  // If the user chooses a skin
 
         print_game(map, &snake);
 
-        int input = 1;      // Declara como int para permitir KEY_ARROW
+        int input = 1;      // This is declared as an int to allow KEY_ARROW
         int last_move = 1;
         bool game_lost = false;
-        timeout(250);        // Espera 0.25 segundos por uma tecla
+        timeout(250);        // Waits 0.25 seconds for a key
 
+        // Gameplay
         while (input != '0' && !game_lost){
             input = getch();
-            if (input == ERR){
-                input = last_move;
-            }
+            if (input == ERR) input = last_move;                // If there's no input, the snake keeps going
             game_lost = move_snake(&snake, map, input, &last_move);
             print_game(map, &snake);
 
-            // Updating the leaderboard
-            if (game_lost){
-                add_to_leaderboard(map->points);
-            }
+            if (game_lost) add_to_leaderboard(map->points);     // Updates the leaderboard
         }
 
-        timeout(-1);        // Espera indefenidamente por uma tecla
+        timeout(-1);        // Waits indefinitely for a key
+        // Lost screen
         if (game_lost){
             printw("A tua cobra bateu! Perdeste o jogo!\n");
         } else {
             printw("Jogo salvo!\n");
+            save_game(&snake, map);
         }
-        refresh();
         printw("Pressiona qualquer tecla para sair...\n");
         refresh();
 
-        save_game(&snake, map);
+    
+        
 
-        getch();   // espera por tecla antes de fechar
+        getch();   // Waits for a key before closing
     }
 
-    endwin();  // termina ncurses
+    endwin();  // Ends ncurses
     return 0;
 }
