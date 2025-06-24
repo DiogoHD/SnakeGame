@@ -64,10 +64,7 @@ void start_game(map_t* map){
             }
         }
     }
-    if (!is_there_snake){
-        generate_snake(map);
-    }
-    if (!is_there_apple){
-        generate_apple(map);
-    }
+    // If this elements are not yet on the map, generates them
+    if (!is_there_snake) generate_snake(map);
+    if (!is_there_apple) generate_apple(map);
 }

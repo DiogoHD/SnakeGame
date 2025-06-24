@@ -110,3 +110,19 @@ void print_game(map_t* map, snake_t* snake){
     addch('\n');
     refresh();
 }
+
+void print_end_screen(map_t* map, snake_t* snake, bool game_lost){
+    timeout(-1);        // Waits indefinitely for a key
+    // End screen
+    if (game_lost){
+        printw("Your snake hit a wall! You lost!\n");
+    } else {
+        printw("Game Saved!\n");
+        save_game(snake, map);
+    }
+    printw("Pressiona qualquer tecla para sair...\n");
+    refresh();
+    napms(2000);    // Waits for 2 seconds before allowing to press a key
+    getch();        // Waits for a key before closing
+    flushinp();     // Cleans the buffer    
+}

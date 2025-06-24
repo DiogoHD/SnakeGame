@@ -4,12 +4,12 @@
 #include "../lib/save.h"
 #include "../lib/leaderboard.h"
 #include <stdio.h>
-#include <ctype.h>          // permite o toupper()
+#include <ctype.h>          // Allows toupper()
 #include <stdlib.h>
-#include <stdbool.h>        // permite o bool (TRUE/FALSE)
-#include <time.h>           // permite o time(NULL) and localtime
+#include <stdbool.h>        // Allows bool (true/false)
+#include <time.h>           // Allows time(NULL) and localtime
 #include <ncursesw/ncurses.h>
-#include <locale.h>         // Permite o setlocale(LC_ALL, "")
+#include <locale.h>         // Allows setlocale(LC_ALL, "")
 
 int main(){
     // Initializing ncurses
@@ -80,21 +80,7 @@ int main(){
             if (game_lost) add_to_leaderboard(map->points);     // Updates the leaderboard
         }
 
-        timeout(-1);        // Waits indefinitely for a key
-        // Lost screen
-        if (game_lost){
-            printw("A tua cobra bateu! Perdeste o jogo!\n");
-        } else {
-            printw("Jogo salvo!\n");
-            save_game(&snake, map);
-        }
-        printw("Pressiona qualquer tecla para sair...\n");
-        refresh();
-
-    
-        
-
-        getch();   // Waits for a key before closing
+        print_end_screen(map, &snake, game_lost);       // Prints end screen
     }
 
     endwin();  // Ends ncurses
