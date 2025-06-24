@@ -27,94 +27,105 @@ int main(){
     // Initializing and declaring variables and arrays
     map_t* map;
     snake_t snake;
+    bool playing = true;
     char option;
     char skin = '0';
     char* skins[] = {"SNAKE", "DRAGON", "CAT", "RABBIT", "TIGER", "BEAR", "MONKEY", "FROG", "MOUSE"};
-    char* menu[] = {"NEW GAME", "LOAD GAME", "SKINS", "LEADERBOARD"};
+    char* menu[] = {"NEW GAME", "LOAD GAME", "SKINS", "LEADERBOARD", "EXIT"};
 
-    // Inicial Menu
-    do {
-        clear();    // Limpa a tela do ncurses
-        // Tela Inicial
-        int len = sizeof(menu)/sizeof(menu[0]);
-        printw("JOGO DA COBRA\n");
-        for (int i=0; i<len; i++){
-            printw("%d - %s\n", i+1, menu[i]);
-        }
-        refresh();  // Atualiza a tela do ncurses
+    while (playing){
 
-        option = getch();   // Recebe um caracter do input
-        switch (option){
-            case '1':
-                map = create_map(12, 22);
+        // Inicial Menu
+        do {
+            clear();    // Limpa a tela do ncurses
+            // Tela Inicial
+            int len = sizeof(menu)/sizeof(menu[0]);
+            printw("JOGO DA COBRA\n");
+            for (int i=0; i<len; i++){
+                printw("%d - %s\n", i+1, menu[i]);
+            }
+            refresh();  // Atualiza a tela do ncurses
+
+            option = getch();   // Recebe um caracter do input
+            switch (option){
+                case '1':
+                    map = create_map(12, 22);
                     start_game(map);
                     create_snake(&snake, map);
-                break; 
-            case '2':
-                map = load_game(&snake);
-                start_game(map);
-                break;
-            case '3':
-                do {
-                    clear();    // Limpa a tela do ncurses
-                    // Tela das Skins
-                    printw("SKINS\n");
-                    int len = sizeof(skins)/sizeof(skins[0]);
-                    for (int i=0; i<len; i++){
-                        printw("%d - %s\n", i+1, skins[i]);
-                    }
-                    refresh();  // Atualiza a tela do ncurses
+                    break; 
+                case '2':
+                    map = load_game(&snake);
+                    start_game(map);
+                    break;
+                case '3':
+                    do {
+                        clear();    // Limpa a tela do ncurses
+                        // Tela das Skins
+                        printw("SKINS\n");
+                        int len = sizeof(skins)/sizeof(skins[0]);
+                        for (int i=0; i<len; i++){
+                            printw("%d - %s\n", i+1, skins[i]);
+                        }
+                        refresh();  // Atualiza a tela do ncurses
 
-                    skin = getch();     // Recebe um caracter do input;
-                } while (skin < '1' || skin > '9');
-                break;
-            case '4':
-                load_leaderboard();
-                break;
-            default:
-                printf("Please choose a valid option.\n");
+                        skin = getch();     // Recebe um caracter do input;
+                    } while (skin < '1' || skin > '9');
+                    break;
+                case '4':
+                    load_leaderboard();
+                    break;
+                case '5':
+                    playing = false;
+                    break;
+                default:
+                    printf("Please choose a valid option.\n");
+            }
+        } while (option != '1' && option != '2' && option != '5');
+
+        // If the user choose to exit, the program ends
+        if (!playing) break;
+
+        // If the user chooses a skin
+        if (skin != '0'){
+            map->skin = skin;
         }
-    } while (option != '1' && option != '2');
 
-    // If the user chooses a skin
-    if (skin != '0'){
-        map->skin = skin;
-    }
-
-    print_game(map, &snake);
-
-    int input = 1;      // Declara como int para permitir KEY_ARROW
-    int last_move = 1;
-    bool game_lost = false;
-    timeout(250);        // Espera 0.25 segundos por uma tecla
-
-    while (input != '0' && !game_lost){
-        input = getch();
-        if (input == ERR){
-            input = last_move;
-        }
-        game_lost = move_snake(&snake, map, input, &last_move);
         print_game(map, &snake);
 
-        // Updating the leaderboard
-        if (game_lost){
-            add_to_leaderboard(map->points);
+        int input = 1;      // Declara como int para permitir KEY_ARROW
+        int last_move = 1;
+        bool game_lost = false;
+        timeout(250);        // Espera 0.25 segundos por uma tecla
+
+        while (input != '0' && !game_lost){
+            input = getch();
+            if (input == ERR){
+                input = last_move;
+            }
+            game_lost = move_snake(&snake, map, input, &last_move);
+            print_game(map, &snake);
+
+            // Updating the leaderboard
+            if (game_lost){
+                add_to_leaderboard(map->points);
+            }
         }
+
+        timeout(-1);        // Espera indefenidamente por uma tecla
+        if (game_lost){
+            printw("A tua cobra bateu! Perdeste o jogo!\n");
+        } else {
+            printw("Jogo salvo!\n");
+        }
+        refresh();
+        printw("Pressiona qualquer tecla para sair...\n");
+        refresh();
+
+        save_game(&snake, map);
+
+        getch();   // espera por tecla antes de fechar
     }
 
-    timeout(-1);        // Espera indefenidamente por uma tecla
-    if (game_lost){
-        printw("A tua cobra bateu! Perdeste o jogo!\n");
-    } else {
-        printw("Jogo salvo!\n");
-    }
-    refresh();
-    printw("Pressiona qualquer tecla para sair...\n");
-    refresh();
-
-    save_game(&snake, map);
-
-    getch();   // espera por tecla antes de fechar
     endwin();  // termina ncurses
     return 0;
 }
