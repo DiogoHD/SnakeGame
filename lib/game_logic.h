@@ -1,8 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include "snake.h"
-#include "map.h"
+#include "game_structs.h"
 #include "print.h"
 #include <stdio.h>
 #include <ctype.h>

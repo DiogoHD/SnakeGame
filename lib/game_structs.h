@@ -1,5 +1,15 @@
-#ifndef SNAKE_H
-#define SNAKE_H
+#ifndef GAME_STRUCTS_H
+#define GAME_STRUCTS_H
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct{
+    int **matrix;
+    int lines, columns;
+    int points;
+    char skin;
+} map_t;
 
 typedef struct snake_node{
     int x, y;

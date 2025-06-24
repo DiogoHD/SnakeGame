@@ -2,8 +2,6 @@
 
 char* choose_char(int number, char skin){
     switch (number){
-        case 0:
-            return "  ";
         case 1: 
             switch (skin){
                 case '1':
@@ -76,24 +74,24 @@ int print_skins_menu(){
 int print_main_menu(){
     char* menu[] = {"NEW GAME", "LOAD GAME", "SKINS", "LEADERBOARD", "EXIT"};
 
-    clear();    // Limpa a tela do ncurses
-    // Tela Inicial
+    clear();    // Cleans ncurses console
+    // Main Menu
     int len = sizeof(menu)/sizeof(menu[0]);
-    printw("JOGO DA COBRA\n");
+    printw("SNAKE GAME\n");
     for (int i=0; i<len; i++){
         printw("%d - %s\n", i+1, menu[i]);
     }
-    refresh();  // Atualiza a tela do ncurses
+    refresh();  // Refresh ncurses console
 
     int option = getch();   // Recebe um caracter do input
     return option;
 }
 
 void print_game(map_t* map, snake_t* snake){
-    clear();    // Limpa a tela do ncurse
-    mvprintw(0, 0, "Pontos: %d\n", map->points);    // Imprime os pontos na primeira linha 
+    clear();    // Cleats ncurses console
+    mvprintw(0, 0, "POINTS: %d\n", map->points);    // Prints the points in the first line
     for (int l=0; l<map->lines; l++){
-        move(l+1, 0);       // Move o cursor para a linha seguinte
+        move(l+1, 0);       // Moves the cursor to the next line
         for (int c=0; c<map->columns; c++){
             if (l == snake->tail->x && c == snake->tail->y){
                 printw("%s", choose_head(map->skin));

@@ -1,6 +1,4 @@
-#include "../lib/snake.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "../lib/game_structs.h"
 
 void init(snake_t *snake){
     snake->head = NULL;

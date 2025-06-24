@@ -1,8 +1,7 @@
 #ifndef SAVE_H
 #define SAVE_H
 
-#include "snake.h"
-#include "map.h"
+#include "game_structs.h"
 #include "game_init.h"
 #include <stdio.h>
 #include <stdlib.h>

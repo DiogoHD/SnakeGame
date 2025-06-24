@@ -1,8 +1,7 @@
 #ifndef GAME_INIT_H
 #define GAME_INIT_H
 
-#include "snake.h"
-#include "map.h"
+#include "game_structs.h"
 #include "game_logic.h"
 #include <stdio.h>
 #include <stdlib.h>

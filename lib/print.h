@@ -1,8 +1,7 @@
 #ifndef PRINT_H
 #define PRINT_H
 
-#include "map.h"
-#include "snake.h"
+#include "game_structs.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ncurses.h>

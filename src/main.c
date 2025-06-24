@@ -1,5 +1,4 @@
-#include "../lib/map.h"
-#include "../lib/snake.h"
+#include "../lib/game_structs.h"
 #include "../lib/game_logic.h"
 #include "../lib/game_init.h"
 #include "../lib/save.h"
