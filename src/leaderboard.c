@@ -29,9 +29,9 @@ void load_leaderboard(){
         fclose(f);
         
         // Print the leaderboard
-        printw("LEADERBOARD");
+        printw("              LEADERBOARD");
         for (int i=0; i<len; i++){
-            printw("\n%dº | %d pontos | %d/%d/%d às %d:%d:%d", i+1, leaderboard[i].points, 
+            printw("\n%2dº | %2d points | %02d/%02d/%04d at %02d:%02d:%02d", i+1, leaderboard[i].points, 
                 leaderboard[i].date.tm_mday, leaderboard[i].date.tm_mon+1, leaderboard[i].date.tm_year+1900,
                 leaderboard[i].date.tm_hour, leaderboard[i].date.tm_min, leaderboard[i].date.tm_sec);
         }
