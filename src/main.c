@@ -34,15 +34,15 @@ int main(){
     do {
         clear();    // Limpa a tela do ncurses
         // Tela Inicial
+        char* array[] = {"NEW GAME", "LOAD GAME", "SKINS", "LEADERBOARD"};
+        int len = sizeof(array)/sizeof(array[0]);
         printw("JOGO DA COBRA\n");
-        printw("1 - NEW GAME\n");
-        printw("2 - LOAD GAME\n");
-        printw("3 - SKINS\n");
-        printw("Option: ");
+        for (int i=0; i<len; i++){
+            printw("%d - %s\n", i+1, array[i]);
+        }
         refresh();  // Atualiza a tela do ncurses
 
         option = getch();   // Recebe um caracter do input
-
         switch (option){
             case '1':
                 map = create_map(12, 22);
@@ -62,11 +62,14 @@ int main(){
                     for (int i=0; i<len; i++){
                         printw("%d - %s\n", i+1, skins[i]);
                     }
-                    printw("Option: ");
                     refresh();  // Atualiza a tela do ncurses
 
                     skin = getch();     // Recebe um caracter do input;
                 } while (skin < '1'&& skin > '8');
+                break;
+            case '4':
+                load_leaderboard();
+                getch();
                 break;
             default:
                 printf("Please choose a valid option.\n");

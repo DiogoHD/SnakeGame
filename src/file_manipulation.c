@@ -2,7 +2,7 @@
 
 void save_game(snake_t* snake, map_t* map){
     FILE *f;
-    f = fopen("save/save.txt", "w");
+    f = fopen("files/save.txt", "w");
     if (f == NULL){
         printw("Erro ao abrir o ficheiro\n");
         exit(1);
@@ -31,7 +31,7 @@ void save_game(snake_t* snake, map_t* map){
 
 map_t* load_game(snake_t* snake){
     FILE *f;
-    f = fopen("save/save.txt", "r");
+    f = fopen("files/save.txt", "r");
     if (f == NULL){
         printw("Erro ao abrir o ficheiro\n");
         exit(1);
@@ -66,9 +66,11 @@ map_t* load_game(snake_t* snake){
 void load_leaderboard(){
     // Open leaderboard binary file
     FILE *f;
-    f = fopen("leaderboard.bin", "rb");
+    f = fopen("files/leaderboard.bin", "rb");
     if (f == NULL){
         printw("Erro ao abrir a leaderboard.\n");
+        refresh();
+        exit(1);
     }
 
     // Find the lenght of the file
@@ -77,23 +79,27 @@ void load_leaderboard(){
     rewind(f);
     int size = sizeof(rank_t);
     int len = bytes / size;
+
+    clear();
     if (len == 0){
         fclose(f);
         printw("A leaderboad está vazia.\n");
+    } else {
+        // Save the file in an array
+        rank_t leaderboard[len];
+        fread(&leaderboard, size, len, f);
+        fclose(f);
+        
+        // Print the leaderboard
+        printw("LEADERBOARD");
+        for (int i=0; i<len; i++){
+            printw("\n%dº | %d pontos | %d/%d/%d às %d:%d:%d\n", i+1, leaderboard[i].points, 
+                leaderboard[i].date.tm_mday, leaderboard[i].date.tm_mon+1, leaderboard[i].date.tm_year+1900,
+                leaderboard[i].date.tm_hour, leaderboard[i].date.tm_min, leaderboard[i].date.tm_sec);
+        }
     }
 
-    // Save the file in an array
-    rank_t leaderboard[len];
-    fread(&leaderboard, size, size, f);
-    fclose(f);
-    
-    // Print the leaderboard
-    printw("LEADERBOARD");
-    for (int i=0; i<len; i++){
-        printw("\n%dº | %d pontos | %d/%d/%d às %d:%d:%d\n", i+1, leaderboard[i].points, 
-            leaderboard[i].date.tm_mday, leaderboard[i].date.tm_mon, leaderboard[i].date.tm_year,
-            leaderboard[i].date.tm_hour, leaderboard[i].date.tm_min, leaderboard[i].date.tm_sec);
-    }
+    refresh();
 }
 
 // Ads a rank to the leaderboard
