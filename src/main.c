@@ -2,7 +2,8 @@
 #include "../lib/snake.h"
 #include "../lib/game_logic.h"
 #include "../lib/game_init.h"
-#include "../lib/file_manipulation.h"
+#include "../lib/save.h"
+#include "../lib/leaderboard.h"
 #include <stdio.h>
 #include <ctype.h>          // permite o toupper()
 #include <stdlib.h>
