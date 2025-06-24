@@ -1,5 +1,5 @@
 My first "big" project.
-A classic Snake Game with skins, leaderboards, saves and setting.
+A classic Snake Game with skins, leaderboards, saves and settings.
 Somethings are still being done.
 
 To compilse use:

@@ -7,11 +7,12 @@
 #include <ctype.h>          // permite o toupper()
 #include <stdlib.h>
 #include <stdbool.h>        // permite o bool (TRUE/FALSE)
-#include <time.h>           // permite o time(NULL)
+#include <time.h>           // permite o time(NULL) and localtime
 #include <ncursesw/ncurses.h>
 #include <locale.h>         // Permite o setlocale(LC_ALL, "")
 
 int main(){
+    // Initializing ncurses
     setlocale(LC_ALL, "");  // Ativa o suporte a UTF-8 (emojis,...)
     initscr();              // Inicializa a biblioteca ncurses e prepara o terminal
     cbreak();               // Modo linha-a-linha: permite capturar teclas imediatamente sem esperar pelo Enter
@@ -23,22 +24,22 @@ int main(){
     // Inicia o gerador de números aleatórios no início do programa
     srand(time(NULL));
 
-    // Declara o mapa e a cobra
+    // Initializing and declaring variables and arrays
     map_t* map;
     snake_t snake;
-
-    // Tela inicial
     char option;
     char skin = '0';
     char* skins[] = {"SNAKE", "DRAGON", "CAT", "RABBIT", "TIGER", "BEAR", "MONKEY", "FROG", "MOUSE"};
+    char* menu[] = {"NEW GAME", "LOAD GAME", "SKINS", "LEADERBOARD"};
+
+    // Inicial Menu
     do {
         clear();    // Limpa a tela do ncurses
         // Tela Inicial
-        char* array[] = {"NEW GAME", "LOAD GAME", "SKINS", "LEADERBOARD"};
-        int len = sizeof(array)/sizeof(array[0]);
+        int len = sizeof(menu)/sizeof(menu[0]);
         printw("JOGO DA COBRA\n");
         for (int i=0; i<len; i++){
-            printw("%d - %s\n", i+1, array[i]);
+            printw("%d - %s\n", i+1, menu[i]);
         }
         refresh();  // Atualiza a tela do ncurses
 
@@ -65,19 +66,21 @@ int main(){
                     refresh();  // Atualiza a tela do ncurses
 
                     skin = getch();     // Recebe um caracter do input;
-                } while (skin < '1'&& skin > '8');
+                } while (skin < '1' || skin > '9');
                 break;
             case '4':
                 load_leaderboard();
-                getch();
                 break;
             default:
                 printf("Please choose a valid option.\n");
         }
     } while (option != '1' && option != '2');
+
+    // If the user chooses a skin
     if (skin != '0'){
         map->skin = skin;
     }
+
     print_game(map, &snake);
 
     int input = 1;      // Declara como int para permitir KEY_ARROW
@@ -92,6 +95,11 @@ int main(){
         }
         game_lost = move_snake(&snake, map, input, &last_move);
         print_game(map, &snake);
+
+        // Updating the leaderboard
+        if (game_lost){
+            add_to_leaderboard(map->points);
+        }
     }
 
     timeout(-1);        // Espera indefenidamente por uma tecla
