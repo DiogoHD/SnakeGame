@@ -30,23 +30,12 @@ int main(){
     bool playing = true;
     char option;
     char skin = '0';
-    char* skins[] = {"SNAKE", "DRAGON", "CAT", "RABBIT", "TIGER", "BEAR", "MONKEY", "FROG", "MOUSE"};
-    char* menu[] = {"NEW GAME", "LOAD GAME", "SKINS", "LEADERBOARD", "EXIT"};
 
     while (playing){
 
         // Inicial Menu
         do {
-            clear();    // Limpa a tela do ncurses
-            // Tela Inicial
-            int len = sizeof(menu)/sizeof(menu[0]);
-            printw("JOGO DA COBRA\n");
-            for (int i=0; i<len; i++){
-                printw("%d - %s\n", i+1, menu[i]);
-            }
-            refresh();  // Atualiza a tela do ncurses
-
-            option = getch();   // Recebe um caracter do input
+            option = print_main_menu();
             switch (option){
                 case '1':
                     map = create_map(12, 22);
@@ -59,16 +48,7 @@ int main(){
                     break;
                 case '3':
                     do {
-                        clear();    // Limpa a tela do ncurses
-                        // Tela das Skins
-                        printw("SKINS\n");
-                        int len = sizeof(skins)/sizeof(skins[0]);
-                        for (int i=0; i<len; i++){
-                            printw("%d - %s\n", i+1, skins[i]);
-                        }
-                        refresh();  // Atualiza a tela do ncurses
-
-                        skin = getch();     // Recebe um caracter do input;
+                        skin = print_skins_menu();
                     } while (skin < '1' || skin > '9');
                     break;
                 case '4':
@@ -77,8 +57,6 @@ int main(){
                 case '5':
                     playing = false;
                     break;
-                default:
-                    printf("Please choose a valid option.\n");
             }
         } while (option != '1' && option != '2' && option != '5');
 
@@ -86,9 +64,7 @@ int main(){
         if (!playing) break;
 
         // If the user chooses a skin
-        if (skin != '0'){
-            map->skin = skin;
-        }
+        if (skin != '0') map->skin = skin;
 
         print_game(map, &snake);
 
