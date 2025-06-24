@@ -15,6 +15,6 @@ typedef struct{
 
 void order_leaderboard(rank_t leaderboard[], int size);
 void load_leaderboard();
-void add_to_leaderboard(int points);
+void update_leaderboard(int points);
 
 #endif

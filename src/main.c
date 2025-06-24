@@ -77,7 +77,7 @@ int main(){
             game_lost = move_snake(&snake, map, input, &last_move);
             print_game(map, &snake);
 
-            if (game_lost) add_to_leaderboard(map->points);     // Updates the leaderboard
+            if (game_lost) update_leaderboard(map->points);     // Updates the leaderboard
         }
 
         print_end_screen(map, &snake, game_lost);       // Prints end screen

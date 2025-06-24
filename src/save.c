@@ -1,5 +1,6 @@
 #include "../lib/save.h"
 
+// Saves the game in save.txt
 void save_game(snake_t* snake, map_t* map){
     FILE *f;
     f = fopen("files/save.txt", "w");
@@ -29,6 +30,7 @@ void save_game(snake_t* snake, map_t* map){
     fclose(f);
 }
 
+// Loads the game from save.txt
 map_t* load_game(snake_t* snake){
     FILE *f;
     f = fopen("files/save.txt", "r");

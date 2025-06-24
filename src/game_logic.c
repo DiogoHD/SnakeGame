@@ -1,19 +1,9 @@
 #include "../lib/game_logic.h"
 
-// Gera um número aleatório entre o minimo (inclusive) e o maximo (inclusive)
+// Generates a random number between a minimun (including) and a maximum (including)
 int random_number(int min, int max){
     int output = min + rand() % (max - min);
     return output;
-}
-
-void generate_apple(map_t* map){
-    int line = 1;
-    int column = 1;
-    do {
-        line = random_number(1, map->lines-1);
-        column = random_number(1, map->columns-1);
-    } while (map->matrix[line][column] == 1 || map->matrix[line][column] == 2);
-    map->matrix[line][column] = 2;
 }
 
 bool move_snake(snake_t* snake, map_t* map, int input, int *last_move){

@@ -1,5 +1,6 @@
 #include "../lib/print.h"
 
+// Chooses the character to be printed
 char* choose_char(int number, char skin){
     switch (number){
         // Prints empty spaces on the map
@@ -37,6 +38,7 @@ char* choose_char(int number, char skin){
     }
 }
 
+// Chooses the skin's head
 char* choose_head(char skin){
     switch (skin){
         case '1':
@@ -62,6 +64,7 @@ char* choose_head(char skin){
     }
 }
 
+// Prints the skins menu
 int print_skins_menu(){
     char* skins[] = {"SNAKE", "DRAGON", "CAT", "RABBIT", "TIGER", "BEAR", "MONKEY", "FROG", "MOUSE"};
 
@@ -78,6 +81,7 @@ int print_skins_menu(){
     return option;     
 }
 
+// Prints the main menu
 int print_main_menu(){
     char* menu[] = {"NEW GAME", "LOAD GAME", "SKINS", "LEADERBOARD", "EXIT"};
 
@@ -94,6 +98,7 @@ int print_main_menu(){
     return option;
 }
 
+// Prints the game
 void print_game(map_t* map, snake_t* snake){
     clear();    // Cleats ncurses console
     mvprintw(0, 0, "POINTS: %d\n", map->points);    // Prints the points in the first line
@@ -111,6 +116,7 @@ void print_game(map_t* map, snake_t* snake){
     refresh();
 }
 
+// Prints the messages when you loose or save the game
 void print_end_screen(map_t* map, snake_t* snake, bool game_lost){
     timeout(-1);        // Waits indefinitely for a key
     // End screen
@@ -120,7 +126,7 @@ void print_end_screen(map_t* map, snake_t* snake, bool game_lost){
         printw("Game Saved!\n");
         save_game(snake, map);
     }
-    printw("Pressiona qualquer tecla para sair...\n");
+    printw("Press any key to leave...\n");
     refresh();
     napms(2000);    // Waits for 2 seconds before allowing to press a key
     getch();        // Waits for a key before closing

@@ -32,6 +32,18 @@ map_t* create_map(int lines, int columns){
     }
 }
 
+// Generates the apple in the map on a random position
+void generate_apple(map_t* map){
+    int line;
+    int column;
+    do {
+        line = random_number(1, map->lines-1);
+        column = random_number(1, map->columns-1);
+    } while (map->matrix[line][column] == 1 || map->matrix[line][column] == 2);
+    map->matrix[line][column] = 2;
+}
+
+// Generates the snake in the map on a random position
 void generate_snake(map_t* map){
     int line;
     int column;
@@ -42,6 +54,7 @@ void generate_snake(map_t* map){
     map->matrix[line][column] = 1;
 }
 
+// Creates the snake in the specified struct
 void create_snake(snake_t* snake, map_t* map){
     init(snake);
     for (int l=0; l<map->lines; l++){
@@ -53,6 +66,7 @@ void create_snake(snake_t* snake, map_t* map){
     }
 }
 
+// Starts the game
 void start_game(map_t* map){
     bool is_there_apple = false, is_there_snake = false;
     for (int l=0; l<map->lines; l++){

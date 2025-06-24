@@ -1,6 +1,6 @@
 #include "../lib/leaderboard.h"
 
-// Loads the leaderboard to an array
+// Loads the leaderbard from leaderboard.bin
 void load_leaderboard(){
     // Open leaderboard binary file
     FILE *f;
@@ -42,6 +42,7 @@ void load_leaderboard(){
     getch();
 }
 
+// Orders the leaderboard by points
 void order_leaderboard(rank_t leaderboard[], int size){
     bool unordered = true;
     rank_t temp;
@@ -58,8 +59,8 @@ void order_leaderboard(rank_t leaderboard[], int size){
     }
 }
 
-// Ads a rank to the leaderboard
-void add_to_leaderboard(int points){
+// Updates the leaderbard in leaderboard.bin
+void update_leaderboard(int points){
     // Open leaderboard binary file
     FILE *f;
     f = fopen("files/leaderboard.bin", "rb+");
