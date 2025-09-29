@@ -8,7 +8,9 @@
 #include <stdbool.h>
 #include <ncurses.h>
 
-typedef enum {INVALID, SNAKE, DRAGON, CAT, RABBIT, TIGER, BEAR, MONKEY, FROG, MOUSE} Skin;
+typedef enum {
+    INVALID, SNAKE, DRAGON, CAT, RABBIT, TIGER, BEAR, MONKEY, FROG, MOUSE
+} Skin;
 
 char* choose_char(int number, Skin skin);
 char* choose_head(Skin skin);
