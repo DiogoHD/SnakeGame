@@ -1,7 +1,7 @@
 #include "../lib/print.h"
 
 // Chooses the character to be printed
-char* choose_char(int number, char skin){
+char* choose_char(int number, Skin skin){
     switch (number){
         // Prints empty spaces on the map
         case 0:
@@ -9,19 +9,19 @@ char* choose_char(int number, char skin){
         // Prints the snake
         case 1: 
             switch (skin){
-                case '1':
-                case '2':
-                case '8':
+                case SNAKE:
+                case DRAGON:
+                case FROG:
                     return "🟩";
-                case '3':
+                case CAT:
                     return "🟨";
-                case '4':
-                case '9':
+                case RABBIT:
+                case MOUSE:
                     return "⬜";
-                case '5':
+                case TIGER:
                     return "🟧";
-                case '6':
-                case '7':
+                case BEAR:
+                case MONKEY:
                     return "🟫";
                 default:
                     return "00";
@@ -39,25 +39,25 @@ char* choose_char(int number, char skin){
 }
 
 // Chooses the skin's head
-char* choose_head(char skin){
+char* choose_head(Skin skin){
     switch (skin){
-        case '1':
+        case SNAKE:
             return "🐍";
-        case '2':
+        case DRAGON:
             return "🐲";
-        case '3': 
+        case CAT: 
             return "🐱";
-        case '4':
+        case RABBIT:
             return "🐰";
-        case '5': 
+        case TIGER: 
             return "🐯";
-        case '6':
+        case BEAR:
             return "🐻";
-        case '7':
+        case MONKEY:
             return "🐵";
-        case '8':
+        case FROG:
             return "🐸";
-        case '9':
+        case MOUSE:
             return "🐭";
         default:
             return "00";
@@ -77,7 +77,7 @@ int print_skins_menu(){
     }
     refresh();  // Refresh ncurses console
 
-    int option = getch();   // Receives a character from an input
+    int option = getch() - '0';   // Receives a character from an input ('1'-'9') and turns it into a number (1-9)
     return option;     
 }
 

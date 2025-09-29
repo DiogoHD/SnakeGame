@@ -1,5 +1,5 @@
 # Executáveis
-/bin/
+bin/
 
 # Ignorar ficheiros de texto
-/files/
+data/

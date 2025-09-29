@@ -28,7 +28,7 @@ int main(){
     snake_t snake;
     bool playing = true;
     char option;
-    char skin = '0';
+    Skin skin = INVALID;
 
     while (playing){
 
@@ -48,7 +48,7 @@ int main(){
                 case '3':
                     do {
                         skin = print_skins_menu();
-                    } while (skin < '1' || skin > '9');
+                    } while (skin == INVALID);
                     break;
                 case '4':
                     load_leaderboard();

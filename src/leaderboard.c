@@ -4,7 +4,7 @@
 void load_leaderboard(){
     // Open leaderboard binary file
     FILE *f;
-    f = fopen("files/leaderboard.bin", "rb");
+    f = fopen("data/leaderboard.bin", "rb");
     if (f == NULL){
         printw("Erro ao abrir a leaderboard.\n");
         refresh();
@@ -63,7 +63,7 @@ void order_leaderboard(rank_t leaderboard[], int size){
 void update_leaderboard(int points){
     // Open leaderboard binary file
     FILE *f;
-    f = fopen("files/leaderboard.bin", "rb+");
+    f = fopen("data/leaderboard.bin", "rb+");
     if (f == NULL){
         printw("Erro ao abrir a leaderboard.\n");
         exit(1);

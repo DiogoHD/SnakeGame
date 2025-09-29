@@ -3,7 +3,7 @@
 // Saves the game in save.txt
 void save_game(snake_t* snake, map_t* map){
     FILE *f;
-    f = fopen("files/save.txt", "w");
+    f = fopen("data/save.txt", "w");
     if (f == NULL){
         printw("Erro ao abrir o ficheiro\n");
         exit(1);
@@ -33,7 +33,7 @@ void save_game(snake_t* snake, map_t* map){
 // Loads the game from save.txt
 map_t* load_game(snake_t* snake){
     FILE *f;
-    f = fopen("files/save.txt", "r");
+    f = fopen("data/save.txt", "r");
     if (f == NULL){
         printw("Erro ao abrir o ficheiro\n");
         exit(1);
