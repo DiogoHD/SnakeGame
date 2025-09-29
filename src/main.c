@@ -28,7 +28,7 @@ int main(){
     snake_t snake;
     bool playing = true;
     char option;
-    Skin skin = INVALID;
+    Skin skin = SNAKE;
 
     while (playing){
 
@@ -61,7 +61,7 @@ int main(){
 
         
         if (!playing) break;                // If the user choose to exit, the program ends
-        if (skin != '0') map->skin = skin;  // If the user chooses a skin
+        if (skin != INVALID) map->skin = skin;  // If the user chooses a skin
 
         print_game(map, &snake);
 

@@ -65,7 +65,7 @@ char* choose_head(Skin skin){
 }
 
 // Prints the skins menu
-int print_skins_menu(){
+Skin print_skins_menu(){
     char* skins[] = {"SNAKE", "DRAGON", "CAT", "RABBIT", "TIGER", "BEAR", "MONKEY", "FROG", "MOUSE"};
 
     clear();    // Clears ncurses console
@@ -78,7 +78,10 @@ int print_skins_menu(){
     refresh();  // Refresh ncurses console
 
     int option = getch() - '0';   // Receives a character from an input ('1'-'9') and turns it into a number (1-9)
-    return option;     
+    if (option >= 1 && option <= 9) {
+        return (Skin) option;      // corresponde ao enum
+    }  
+    return INVALID;
 }
 
 // Prints the main menu
