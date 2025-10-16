@@ -1,11 +1,23 @@
-My first "big" project.
-A classic Snake Game with skins, leaderboards and saves.
-Somethings are still being done.
+# Snake Game
+A simple and classic Snake Game that runs in your terminal!
 
-To compilse use:
-gcc -Wall -Wextra src/*.c -o bin/exe -lncursesw
+## Features
+- Multiple Skins
+- Leaderboard
+- Save and load game options
+- Terminal-based gameplay
 
-To play use:
-./bin/exe
+## Requirements
+- gcc
+- ncursesw library
 
-To save a game use: '0'
+## How to play
+1. Clone the repository:
+   ```bash
+   git clone <repo-url>
+   ```
+2. Compile and run:
+    ```bash
+    make run
+    ```
+3. In the game, press `0` to save your progress
