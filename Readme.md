@@ -14,7 +14,7 @@ A simple and classic Snake Game that runs in your terminal!
 ## How to play
 1. Clone the repository:
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/DiogoHD/SnakeGame.git
    ```
 2. Compile and run:
     ```bash
