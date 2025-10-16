@@ -10,7 +10,7 @@ void save_game(snake_t* snake, map_t* map){
     }
 
     // Save the number of lines, columns, ponts and the skin being used
-    fprintf(f, "Lines: %d\nColumns: %d\nPoints: %d\nSkin: %c\n", map->lines, map->columns, map->points, map->skin);
+    fprintf(f, "Lines: %d\nColumns: %d\nPoints: %d\nSkin: %d\n", map->lines, map->columns, map->points, map->skin);
 
     // Save apple position
     for (int l=0; l<map->lines; l++){
@@ -41,9 +41,8 @@ map_t* load_game(snake_t* snake){
 
     // Create map
     map_t* map;
-    int lines, columns, points;
-    char skin;
-    fscanf(f, "Lines: %d\nColumns: %d\nPoints: %d\nSkin: %c\n", &lines, &columns, &points, &skin);
+    int lines, columns, points, skin;
+    fscanf(f, "Lines: %d\nColumns: %d\nPoints: %d\nSkin: %d\n", &lines, &columns, &points, &skin);
     map = create_map(lines, columns);
     map->points = points;
     map->skin = skin;
